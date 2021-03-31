@@ -12,7 +12,6 @@ interface Configuration<T> {
 export function writableCached<T>({defaultVal, key, toCache, fromCache, debounce = 500 }: Configuration<T>) {
     let init = fromCache(Cookies.get(key))
     init = init || defaultVal;
-    console.log(Cookies.get(key))
     const {set, subscribe, update} = writable<T>(defaultVal);
     let timeout = null;
 
@@ -27,7 +26,6 @@ export function writableCached<T>({defaultVal, key, toCache, fromCache, debounce
 
     return {
         set(val: T) {
-            console.log("SET", val)
             debounceAction(() => {
                 set(val)
             });

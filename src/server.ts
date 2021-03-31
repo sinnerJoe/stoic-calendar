@@ -12,8 +12,6 @@ const server = polka(); // You can also use Express
 server.get('/pdf/:birth/:expectancy', (req, res) => {
 	const {birth, expectancy} = req.params;
 	const pdfBlob = generatePaper(new Date(birth), Number(expectancy));
-	console.log(pdfBlob, new Date(birth), expectancy, typeof res.send)
-	// res.send(pdfBlob)
 	// res.setHeader("Content-Disposition", `attachment; filename="stoic-calendar-${birth}.pdf"`);
 	res.write(Buffer.from(pdfBlob));
 	res.send()
