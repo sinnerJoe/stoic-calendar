@@ -14,11 +14,10 @@ server.get('/pdf/:birth/:expectancy', (req, res) => {
 	const pdfBlob = generatePaper(new Date(birth), Number(expectancy));
 	// res.setHeader("Content-Disposition", `attachment; filename="stoic-calendar-${birth}.pdf"`);
 	res.write(Buffer.from(pdfBlob));
-	res.send()
-
+	res.end();
 });
 server.use(
-	compression({ threshold: 0 }),
+	compression({ threshold: 0 }) as any,
 	sirv('static', { dev }),
 	sapper.middleware()
 )
