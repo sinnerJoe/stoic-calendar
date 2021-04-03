@@ -22,7 +22,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.18.3]
+        node-version: '12.18.3'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -36,8 +36,9 @@ jobs:
 
       - name: Build the project
         run: |
-          npm install
-          npm run build
+          npm i -g yarn
+          yarn
+          yarn build
       
       - name: deploy to server
         uses: garygrossgarten/github-action-ssh@release
