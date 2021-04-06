@@ -31,6 +31,7 @@ class PDFGenerator {
 	private expectancy: number;
 	private weeksLived: number;
 	private y: number;
+	private birthDayOfWeek: string;
 	constructor(birthDate: Date, expectancy: number) {
 		this.doc.setPage(0);
 		this.doc.setProperties({
@@ -40,6 +41,7 @@ class PDFGenerator {
 		})
 		this.remainingYears = expectancy;
 		this.expectancy = expectancy;
+		this.birthDayOfWeek = format(birthDate, 'eeee');
 		this.weeksLived = differenceInWeeks(new Date(), birthDate);
 		this.y = TOP_MARGIN;
 		this.doc.addMetadata('Your Life', 'title')
@@ -66,17 +68,32 @@ class PDFGenerator {
 		this.y += PADDING / 3 * 2;
 	}
 
+	renderFooter() {
+		const xPos = PADDING;
+		this.doc.setFontSize(10);
+		this.doc.setDrawColor(150, 150, 150)
+		this.doc.setTextColor(100);
+		this.setDefaultFont();
+		this.doc.text(`*Cross out one square on each ${this.birthDayOfWeek}.`, xPos, this.y + PADDING / 2, 
+			{align: 'left', maxWidth: PAPER_WIDTH} );
+	}
+
 	renderCalendar() {
 		this.renderTitle()
 		while(this.remainingYears > 0) {
 			this.renderBlock();
 		}
+		this.renderFooter();
+	}
+
+	setDefaultFont(style?: string) {
+		this.doc.setFont(Object.keys(this.doc.getFontList())[0], style);
 	}
 
 	renderYearMarker() {
 		const x = PAPER_WIDTH - PADDING * 1.3;
 		this.doc.setFontSize(8)
-		this.doc.setFont(Object.keys(this.doc.getFontList())[0]);
+		this.setDefaultFont();
 		const text = String(this.expectancy - this.remainingYears) 
 		const {h} = this.doc.getTextDimensions(text)
 		this.doc.text(text, x, this.y - h/3, {align: 'left'});

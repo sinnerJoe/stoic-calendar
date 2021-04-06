@@ -66,14 +66,26 @@
 	{/each}
 </div>
 
-<style>
+<style lang="scss">
 	.year-stack {
 		--cell-space: 2px;
 		--middle-space: 15px;	
-	}
-	.year-stack {
 		position: relative;
 		margin-bottom: 15px;
+		> .year-marker {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			> .year-count {
+				position: relative;
+				right: calc(-100% - 10px);
+				top: 4px;
+			}
+			
+			.year-count {
+				font-size: 12px;
+			}
+		}
 	}
 
 	.year,
@@ -83,42 +95,28 @@
 		margin-bottom: var(--cell-space);
 	}
 
-	.year-stack > .year-marker {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-	}
 
-	.year-marker > .year-count {
-		position: relative;
-		right: calc(-100% - 10px);
-		top: 4px;
-	}
-	
-	.year-count {
-		font-size: 12px;
-	}
 
 	.half-year:last-child {
 		margin-left: var(--middle-space);
 	}
 
-	.block {
+	.block { 
 		transition: background-color 0.5s;
 		margin-left: var(--cell-space);
 		flex-grow: 1;
 		border: 1px solid black;
-	}
 
-	.block > .block-content {
-		margin-left: 100%;
-		width: 100%;
-		height: 0;
-		padding-bottom: 100%;
-	}
+		&.full {
+			background: black;
+		}
 
-	.block.full {
-		background: black;
+		.block-content {
+			margin-left: 100%;
+			width: 100%;
+			height: 0;
+			padding-bottom: 100%;
+		}
 	}
 
 	@media (min-width: 640px) {

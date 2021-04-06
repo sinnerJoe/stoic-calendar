@@ -1,6 +1,6 @@
 <script>
 	import { expectancy, birthDate } from "../store/date";
-	import FullCalendar from "components/FullCalendar.svelte";
+	import FullCalendar from "components/calendar/FullCalendar.svelte";
 </script>
 
 <svelte:head>
