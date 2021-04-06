@@ -50,6 +50,9 @@ jobs:
           echo "${{ secrets.DEPLOY_KEY }}" >> ./file.key
           chmod 600 ./file.key
 
+      - name: check key
+        run: stat ./file.key
+
       - name: deploy ssh
         uses: appleboy/ssh-action@master
         with:
