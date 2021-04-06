@@ -45,11 +45,15 @@ jobs:
       #     SSH_PRIV_KEY: ${{secrets.DEPLOY_KEY}}
       #     SSH_USER: ${{ secrets.SERVER_USERNAME }}
       #     SCRIPT_PATH: ${{ secrets.SCRIPT }}
+      - name: save private key 
+        run: |
+          echo "${{ secrets.DEPLOY_KEY }}" >> ./file.key
+          chmod 600 ./file.key
 
       - name: deploy ssh
         uses: appleboy/ssh-action@master
         with:
           host: stoic-calendar.com
           username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.DEPLOY_KEY }}
+          key_path: ./file.key
           script: ${{ secrets.SCRIPT }}
