@@ -38,5 +38,8 @@ jobs:
       
       - name: deploy to server
         run: |
-          echo ${{ secrets.DEPLOY_KEY }} > keyfile 
+          echo "$SSH_PRIV_KEY" > keyfile 
           ssh -i keyfile ${{ SECRETS.SERVER_USERNAME }}@stoic-calendar.com su -c '${{ secrets.SCRIPT }}'
+        shell: bash
+        env:
+          SSH_PRIV_KEY: ${{secrets.DEPLOY_KEY}}
