@@ -43,5 +43,5 @@ jobs:
         shell: bash
         env:
           SSH_PRIV_KEY: ${{secrets.DEPLOY_KEY}}
-          SSH_USER: ${{ SECRETS.SERVER_USERNAME }}
+          SSH_USER: ${{ secrets.SERVER_USERNAME }}
           SCRIPT_PATH: ${{ secrets.SCRIPT }}
