@@ -36,12 +36,20 @@ jobs:
           yarn
           yarn build
       
-      - name: deploy to server
-        run: |
-          echo "$SSH_PRIV_KEY" >> ./keyfile 
-          ssh -i ./keyfile $SSH_USER@stoic-calendar.com su -c '$SCRIPT_PATH'
-        shell: bash
-        env:
-          SSH_PRIV_KEY: ${{secrets.DEPLOY_KEY}}
-          SSH_USER: ${{ secrets.SERVER_USERNAME }}
-          SCRIPT_PATH: ${{ secrets.SCRIPT }}
+      # - name: deploy to server
+      #   run: |
+      #     echo "$SSH_PRIV_KEY" >> ./keyfile 
+      #     ssh -i ./keyfile $SSH_USER@stoic-calendar.com su -c '$SCRIPT_PATH'
+      #   shell: bash
+      #   env:
+      #     SSH_PRIV_KEY: ${{secrets.DEPLOY_KEY}}
+      #     SSH_USER: ${{ secrets.SERVER_USERNAME }}
+      #     SCRIPT_PATH: ${{ secrets.SCRIPT }}
+
+      - name: deploy ssh
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ${{ secrets.SCRIPT }}
+          host: stoic-calendar.com
+          username: ${{ secrets.SERVER_USERNAME }}
+          privateKey: ${{ secrets.DEPLOY_KEY }}
