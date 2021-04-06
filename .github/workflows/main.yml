@@ -37,11 +37,6 @@ jobs:
           yarn build
       
       - name: deploy to server
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: bash ${{ secrets.SCRIPT }}
-          host: stoic-calendar.com
-          username: ${{ secrets.SEVER_USERNAME }}
-#           passphrase: ${{ secrets.PASSPHRASE }}
-          privateKey: ${{ secrets.DEPLOY_KEY }}
-        
+        run: |
+          echo ${{ secrets.DEPLOY_KEY }} > keyfile 
+          ssh -i keyfile ${{ SECRETS.SERVER_USERNAME }}@stoic-calendar.com su -c '${{ secrets.SCRIPT }}'
