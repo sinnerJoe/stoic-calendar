@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -36,27 +36,5 @@ jobs:
           yarn
           yarn build
       
-      # - name: deploy to server
-      #   run: |
-      #     echo "$SSH_PRIV_KEY" >> ./keyfile 
-      #     ssh -i ./keyfile $SSH_USER@stoic-calendar.com su -c '$SCRIPT_PATH'
-      #   shell: bash
-      #   env:
-      #     SSH_PRIV_KEY: ${{secrets.DEPLOY_KEY}}
-      #     SSH_USER: ${{ secrets.SERVER_USERNAME }}
-      #     SCRIPT_PATH: ${{ secrets.SCRIPT }}
-      - name: save private key 
-        run: |
-          echo "${{ secrets.DEPLOY_KEY }}" >> ./file.key
-          chmod 600 ./file.key
-
-      - name: check key
-        run: stat ./file.key
-
-      - name: deploy ssh
-        uses: appleboy/ssh-action@master
-        with:
-          host: stoic-calendar.com
-          username: ${{ secrets.SERVER_USERNAME }}
-          key_path: ./file.key
-          script: ${{ secrets.SCRIPT }}
+      - name: deploy website
+        run: /home/github-actions/scripts/deploy-stoic-calendar.sh
