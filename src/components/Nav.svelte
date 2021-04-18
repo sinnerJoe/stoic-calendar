@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { birthDate, expectancy } from "../store/date";
-	import DatePicker from "components/date-picker/DatePicker";
+	import DatePicker from "components/date-picker/DatePicker.svelte";
 	import { format } from "date-fns";
 
 	const changeDate = (ev) => {
