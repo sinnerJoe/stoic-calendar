@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { birthDate, expectancy } from "../store/date";
+	import DatePicker from "components/date-picker/DatePicker"
 	import { format } from "date-fns";
 
 	const changeDate = (ev) => {
-		const date = ev.target.value;
+		const date = ev.detail.date;
+		console.log(date)
 		$birthDate = new Date(date);
 	};
 
@@ -13,7 +15,12 @@
 		$expectancy = Math.min(number, 150);
 	};
 
+	const currentYear = new Date().getFullYear();
+
+	const renderedYears = [currentYear - 120, currentYear - 5];
+
 	$: formattedDate = format($birthDate, "yyyy-MM-dd");
+
 </script>
 
 <nav>
@@ -21,12 +28,7 @@
 	<div class="controls">
 	<label class="space-right">
 		<span>Birth</span>
-		<input
-			class="date"
-			type="date"
-			on:input={changeDate}
-			value={formattedDate}
-		/>
+		<DatePicker date={$birthDate} on:confirmDate={changeDate} years_map={renderedYears} />
 	</label>
 
 	<label>
@@ -40,7 +42,7 @@
 	</label>
 	</div>
 	<div>
-		<a href={`/pdf/${formattedDate}/${$expectancy}`} target="_blank" rel="external">
+		<a href={`/pdf/${formattedDate}/${$expectancy}/stoic-calendar`} target="_blank" rel="external">
 			<img alt="PDF" src={'pdf.svg'} />
 		</a>
 	</div>

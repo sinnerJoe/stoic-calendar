@@ -9,7 +9,7 @@ const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
 const server = polka(); // You can also use Express
-server.get('/pdf/:birth/:expectancy', (req, res) => {
+server.get('/pdf/:birth/:expectancy/stoic-calendar', (req, res) => {
 	const {birth, expectancy} = req.params;
 	const pdfBlob = generatePaper(new Date(birth), Number(expectancy));
 	// res.setHeader("Content-Disposition", `attachment; filename="stoic-calendar-${birth}.pdf"`);

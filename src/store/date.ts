@@ -16,6 +16,7 @@ export const birthDate = writableCached<Date>({
 	toCache: (date: Date) => {
 		return format(date, "yyyy-MM-dd");
 	},
+	debounce: 0
 });
 
 const defaultExpectancy = 60;
