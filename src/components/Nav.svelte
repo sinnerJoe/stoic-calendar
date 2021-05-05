@@ -5,7 +5,6 @@
 
 	const changeDate = (ev) => {
 		const date = ev.detail.date;
-		console.log(date)
 		$birthDate = new Date(date);
 	};
 
@@ -28,7 +27,7 @@
 	<div class="controls">
 	<label class="space-right">
 		<span>Birth</span>
-		<DatePicker date={$birthDate} on:confirmDate={changeDate} years_map={renderedYears} />
+		<DatePicker date={$birthDate} on:confirmDate={changeDate} endDate={new Date()} />
 	</label>
 
 	<label>
