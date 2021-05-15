@@ -1,7 +1,15 @@
 <script lang="ts">
 	import { birthDate, expectancy } from "../store/date";
 	import DatePicker from "components/date-picker/DatePicker.svelte";
-	import { format } from "date-fns";
+	import { format, sub } from "date-fns";
+	import FloatingMenu from "./floating-menu/FloatingMenu.svelte";
+    import pdfIcon from '../node_modules/images/pdf.svg';
+	import AgeModal from "./age-modal/AgeModal.svelte";
+	import OnlyClient from "../utils/OnlyClient.svelte";
+
+
+	let visible = false;
+	let visibleAgeModal = false;
 
 	const changeDate = (ev) => {
 		const date = ev.detail.date;
@@ -14,20 +22,40 @@
 		$expectancy = Math.min(number, 150);
 	};
 
-	const currentYear = new Date().getFullYear();
 
-	const renderedYears = [currentYear - 120, currentYear - 5];
+	function openDatePicker() {
+		visible = true;
+	}
+
+
+	const startDate = sub(new Date(), {years: 100});
+	const endDate = sub(new Date(), {years: 5});
+
 
 	$: formattedDate = format($birthDate, "yyyy-MM-dd");
+	$: pdfUrl = `/pdf/${formattedDate}/${$expectancy}/stoic-calendar`;
+
+	function visitPDFUrl() {
+		window.open(pdfUrl)
+	}
+
+	function modalChangeExpectancy({detail: age}) {
+		$expectancy = age;
+	}
+
+	function openAgePicker() {
+		visibleAgeModal = true;
+	}
+
 
 </script>
 
 <nav>
 <div class="space-between">
 	<div class="controls">
-	<label class="space-right">
+	<label class="space-right datepicker-container">
 		<span>Birth</span>
-		<DatePicker date={$birthDate} on:confirmDate={changeDate} endDate={new Date()} />
+		<DatePicker bind:visible={visible} startDate={startDate} endDate={endDate} date={$birthDate} on:confirmDate={changeDate} />
 	</label>
 
 	<label>
@@ -41,12 +69,17 @@
 	</label>
 	</div>
 	<div>
-		<a href={`/pdf/${formattedDate}/${$expectancy}/stoic-calendar`} target="_blank" rel="external">
-			<img alt="PDF" src={'pdf.svg'} />
+		<a href={pdfUrl} target="_blank" rel="external">
+			<img alt="PDF" src={pdfIcon} />
 		</a>
 	</div>
 </div>
 </nav>
+
+<AgeModal bind:visible={visibleAgeModal} on:change={modalChangeExpectancy} value={$expectancy} />
+<OnlyClient>
+	<FloatingMenu on:clickBirthEntry={openDatePicker} on:clickDownload={visitPDFUrl} on:clickExpectancy={openAgePicker} />
+</OnlyClient>
 
 <style>
 
@@ -69,6 +102,10 @@
 		align-content: middle;
 		font-family: "Open Sans", sans-serif;
 	}
+
+		nav {
+			display: none;
+		}
 
 	label {
 		display: flex;

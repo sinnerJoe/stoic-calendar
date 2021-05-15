@@ -11,13 +11,15 @@
 
 <FullCalendar years={$expectancy} birth={$birthDate} />
 
-<p class="quote">
-	"It is not that we have a short time to live, but that we waste a lot of it.
-	Life is long enough, and a sufficiently generous amount has been given to us
-	for the highest achievements if it were all well invested."
-	<br />
-</p>
-<p class="author">- Seneca</p>
+<div class="quote-container">
+	<p class="quote">
+		"It is not that we have a short time to live, but that we waste a lot of it.
+		Life is long enough, and a sufficiently generous amount has been given to us
+		for the highest achievements if it were all well invested."
+		<br />
+	</p>
+	<p class="author">- Seneca</p>
+</div>
 
 <style>
 	h1,
@@ -28,6 +30,12 @@
 
 	.quote {
 		font-style: italic;
+	}
+
+	@media (max-width: 1050px) {
+		.quote-container {
+			padding-bottom: 3em;
+		}
 	}
 
 	.author {

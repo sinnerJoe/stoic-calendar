@@ -22,6 +22,7 @@ export const birthDate = writableCached<Date>({
 const defaultExpectancy = 60;
 export const expectancy = writableCached<number>({
 	key: 'lifeExpectancy',
+	debounce: 0,
 	defaultVal: defaultExpectancy,
 	fromCache: (str) => Number(str) || defaultExpectancy,
 	toCache: (val) => String(val)

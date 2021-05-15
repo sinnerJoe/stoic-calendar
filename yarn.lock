@@ -15,10 +15,10 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.12.tgz#431ec342a7195622f86688bbda82e3166ce8cb28"
   integrity sha512-6RglhutqrGFMO1MNUXp95RBuYIuc8wTnMAV5MUhLmjTOy78ncwOw7RgeQ/HeymkKXRhZd0s2DNrM1rL7unk3MQ==
 
-"@sinnerjoe/svelte-touch-datepicker@^2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@sinnerjoe/svelte-touch-datepicker/-/svelte-touch-datepicker-2.0.5.tgz#7d24b359cb1c89f763eca09bdca3ae8cc368ae7a"
-  integrity sha512-wVY+SD3BvXNX5xBZekFYnbpNzmLk1SNHy/zx8qErj6cG5C23CAE/YIR94IeFN9VuG2tOBfLUhVGAkmrqRtkYoQ==
+"@sinnerjoe/svelte-touch-datepicker@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@sinnerjoe/svelte-touch-datepicker/-/svelte-touch-datepicker-2.1.1.tgz#220777330ad9e58182a39c1b43bcfe8951a5bac8"
+  integrity sha512-t/krhoIn7K5q8aF9Xx2h/iPMTnkY0Ti3EjyjoouLOdyuF00OdcFCENRRa/050RrY/+qlp5MvtragpDGjVTiMyg==
   dependencies:
     svelte-portal "^2.1.2"
 

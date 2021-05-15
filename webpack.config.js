@@ -16,7 +16,7 @@ const alias = {
 const extensions = ['.mjs', '.js', '.ts', '.json', '.svelte', '.html'];
 const mainFields = ['svelte', 'module', 'browser', 'main'];
 const fileLoaderRule = {
-	test: /\.(png|jpe?g|gif)$/i,
+	test: /\.(png|jpe?g|gif|svg)$/i,
 	use: [
 		'file-loader',
 	]
