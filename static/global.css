@@ -39,6 +39,7 @@ code {
 	--bubble-width: 3em;
 	--bubble-shadow: 0px 0px 5px 0px #000000;
 	--weak-bubble-shadow: 0px 0px 3px 0px #000000;
+	--bubble-space-bottom: clamp(var(--bubble-width) / 1.5, 10vh, var(--bubble-width) * 1.5);
 }
 
 .bubble {
@@ -49,6 +50,17 @@ code {
 	padding: 0.5em;
     background: white;
 	box-shadow: var(--weak-bubble-shadow);
+}
+.bubble:hover, .bubble:active {
+	-webkit-tap-highlight-color: transparent;
+	background-color: white;
+	outline-width: 0;
+	 -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
 }
 .bubble:hover {
 	box-shadow: var(--bubble-shadow);

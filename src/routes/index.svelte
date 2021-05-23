@@ -1,6 +1,11 @@
 <script>
 	import { expectancy, birthDate } from "../store/date";
 	import FullCalendar from "components/calendar/FullCalendar.svelte";
+	import {getRandomQuote} from "../store/quotes";
+
+
+	$: quote = getRandomQuote();
+	$: quoteFragments = `"${quote.quote}"`.split('\n');
 </script>
 
 <svelte:head>
@@ -11,14 +16,15 @@
 
 <FullCalendar years={$expectancy} birth={$birthDate} />
 
-<div class="quote-container">
+<div class="quote-container" >
 	<p class="quote">
-		"It is not that we have a short time to live, but that we waste a lot of it.
-		Life is long enough, and a sufficiently generous amount has been given to us
-		for the highest achievements if it were all well invested."
-		<br />
+		{#each quoteFragments as fragment}
+		<div class='quote-fragment'>
+			{fragment}
+		</div> 
+		{/each}
 	</p>
-	<p class="author">- Seneca</p>
+	<p class="author">- {quote.author}</p>
 </div>
 
 <style>
@@ -30,11 +36,12 @@
 
 	.quote {
 		font-style: italic;
+		margin-bottom: 1em;
 	}
 
 	@media (max-width: 1050px) {
 		.quote-container {
-			padding-bottom: 3em;
+			padding-bottom: calc(calc(var(--bubble-width) / 2) + var(--bubble-space-bottom));
 		}
 	}
 

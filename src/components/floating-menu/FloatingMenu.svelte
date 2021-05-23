@@ -29,7 +29,9 @@
 
 <div class="floating">
     <div class="relative">
-        <img src={verticalMenuIcon} on:click={toggleOpen} alt="Menu" class="menu-toggle bubble"/>
+        <div on:click={toggleOpen} class="menu-toggle bubble">
+            <img src={verticalMenuIcon}  alt="Menu" />
+        </div>
         <Item on:click={clickBirthEntry} src={bornIcon} label="Birth Date" distance={animationCoeff * (menuMarginTop + menuItemSpace * 1)} animationDuration={200}/>
         <Item on:click={clickExpectancy} src={timeIcon} label="Life Expectancy" distance={animationCoeff * (menuMarginTop + menuItemSpace * 2)} animationDuration={200} />
         <Item 
@@ -58,12 +60,11 @@
     right: clamp(2em, 15vw, 5.5em);
     z-index: 1;
     bottom: clamp(2em, 8vh, 5.5em);
-    padding-bottom: clamp(var(--bubble-width) / 1.5, 10vh, var(--bubble-width) * 1.5);
+    padding-bottom: var(--bubble-space-bottom);
     :global(.grayscale) {
         filter: grayscale(1);
     }
 }
-
 
 
 .menu-toggle {
@@ -72,6 +73,12 @@
     position: absolute;
     padding: 0.5em;
     box-shadow: var(--bubble-shadow);
+    img {
+        height: 100%;
+        margin: 0 auto;
+        display: block;
+        transform: scale(0.8);
+    }
 }
 
 </style>

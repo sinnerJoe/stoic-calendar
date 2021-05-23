@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { differenceInWeeks } from "date-fns";
+	import { differenceInWeeks, addYears } from "date-fns";
 	export let years = 80;
 	export let birth = new Date(1996, 11, 1);
 
@@ -7,9 +7,10 @@
 
 	let yearBlocks: boolean[][][][];
 
+	$: weeksConsumed = differenceInWeeks(new Date(), birth);
+	$: weeksTotal = differenceInWeeks(addYears(birth, years), birth);
 	$: {
-		let weeksLived = differenceInWeeks(new Date(), birth);
-
+		let weeksLived = weeksConsumed;
 		function didExpire() {
 			const expired = weeksLived > 0;
 			weeksLived--;
@@ -42,6 +43,9 @@
 </script>
 
 <div>
+	<p>
+		You have lived <b>{weeksConsumed}</b> weeks out of <b>{weeksTotal}</b> given to you, <b>{weeksTotal - weeksConsumed}</b> weeks remaining.
+	</p>
 	{#each yearBlocks as yearBlock, blockNr}
 		<div class="year-stack">
 			{#each yearBlock as year}
@@ -69,9 +73,9 @@
 <style lang="scss">
 	.year-stack {
 		--cell-space: 2px;
-		--middle-space: 15px;	
+		--middle-space: 10px;	
 		position: relative;
-		margin-bottom: 15px;
+		margin-bottom: var(--middle-space);
 		> .year-marker {
 			position: absolute;
 			right: 0;
@@ -93,6 +97,11 @@
 		display: flex;
 		width: 100%;
 		margin-bottom: var(--cell-space);
+	}
+
+	p {
+		color: gray;
+		font-size: 0.9em;
 	}
 
 
@@ -126,6 +135,10 @@
 		}
 		.year-count {
 			font-size: 14px;
+		}
+		
+		.year-stack {
+			--middle-space: 15px;
 		}
 	}
 </style>
