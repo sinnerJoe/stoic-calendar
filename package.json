@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=./",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "publish": "npm run build && node scripts/publish.js"
   },
   "dependencies": {
     "@sinnerjoe/svelte-touch-datepicker": "^2.1.1",
