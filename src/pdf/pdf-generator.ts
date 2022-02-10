@@ -2,6 +2,7 @@ import { jsPDF } from "jspdf";
 import { differenceInWeeks, format } from "date-fns";
 
 import "./fonts/AmaticSC-Bold-bold";
+import { countLeapWeeksBetween } from "../utils";
 
 export function generatePaper(birthDate: Date, expectancy: number) {
   const generator = new PDFGenerator(birthDate, expectancy);
@@ -47,7 +48,9 @@ class PDFGenerator {
     this.remainingYears = expectancy;
     this.expectancy = expectancy;
     this.birthDayOfWeek = format(birthDate, "eeee");
-    this.weeksLived = differenceInWeeks(new Date(), birthDate);
+    this.weeksLived =
+      differenceInWeeks(new Date(), birthDate) -
+      countLeapWeeksBetween(birthDate);
     this.y = TOP_MARGIN;
     this.doc.addMetadata("Your Life", "title");
   }
